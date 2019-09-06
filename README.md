@@ -1,3 +1,3 @@
 # lost-avalon
 
-Just trying a Haskell project:)
+A simple program allowing you to write python in Wenyanwen（文言文）
