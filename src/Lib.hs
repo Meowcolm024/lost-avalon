@@ -9,15 +9,15 @@ import Words
 
 someFunc :: IO ()
 someFunc = do
-    handle <- openFile "wenyan.txt" ReadMode  
+    handle   <- openFile "wenyan.txt" ReadMode  
     contents <- hGetContents handle  
     writeFile "wenyan.py" $ parseBack (map (`replaceList` keywords) (getVal $ parseTo contents))
     hClose handle  
   
 wyFile = endBy line eol
-line = sepBy cell (char ' ')
-cell = many (noneOf " \n")
-eol = char '\n'
+line   = sepBy cell (char ' ')
+cell   = many (noneOf " \n")
+eol    = char '\n'
 
 -- convert to single word
 parseTo :: String -> Either ParseError [[String]]
@@ -29,14 +29,14 @@ parseBack x = unlines $ map unwords x
 
 getVal :: Either a b -> b
 getVal (Right x) = x
-getVal (Left x) = error "Probably syntax error"
+getVal (Left x)  = error "Probably syntax error"
 
 replace :: (Eq a) => a -> [(a, a)] -> a
 replace x ((a, b):ys)
-    | x == a = b
+    | x == a             = b
     | x /= a && ys /= [] = replace x ys
-    | otherwise = x
+    | otherwise          = x
 
 replaceList :: (Eq a) => [a] -> [(a, a)] -> [a]
-replaceList [] _ = []
+replaceList [] _  = []
 replaceList xs ys = map (`replace` ys) xs
