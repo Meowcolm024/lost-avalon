@@ -5,22 +5,38 @@ module Lib
 
 import Text.ParserCombinators.Parsec
 import System.IO
+import Words
 
 someFunc :: IO ()
 someFunc = do
     handle <- openFile "t1.txt" ReadMode  
     contents <- hGetContents handle  
-    print $ getVal $ parseCSV contents  
+    writeFile "t1.py" $ parseBack $ getVal $ parseTo contents  
     hClose handle  
   
-csvFile = endBy line eol
+wyFile = endBy line eol
 line = sepBy cell (char ' ')
 cell = many (noneOf " \n")
 eol = char '\n'
 
-parseCSV :: String -> Either ParseError [[String]]
-parseCSV = parse csvFile "(unknown)"
+-- convert to single word
+parseTo :: String -> Either ParseError [[String]]
+parseTo = parse wyFile "(unknown)"
+
+-- convert back to normal format
+parseBack :: [[String]] -> String
+parseBack x = unlines $ map unwords x
 
 getVal :: Either a b -> b
 getVal (Right x) = x
 getVal (Left x) = error "Error"
+
+replace :: (Eq a) => a -> [(a, a)] -> a
+replace x ((a, b):ys)
+    | x == a = b
+    | x /= a && ys /= [] = replace x ys
+    | otherwise = x
+
+replaceList :: (Eq a) => [a] -> [(a, a)] -> [a]
+replaceList [] _ = []
+replaceList xs ys = map (`replace` ys) xs

@@ -1,5 +1,7 @@
-arr = [ 1 for i in range(20)]
-print(arr[1])
-for i in range(2,20):
-    arr[i] = arr[i-1] + arr[i-2]
-    print(arr[i])
+甲子 者 1 也
+乙丑 者 2 也
+
+有略名 add(x,y) 文曰
+    上疏曰 x 加 y
+
+曰 add(甲子 乙丑) 。
