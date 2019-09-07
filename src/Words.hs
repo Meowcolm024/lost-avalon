@@ -15,5 +15,11 @@ keywords =
         ("上疏曰", "return"),
         -- print function
         ("曰", "print("),
-        ("。", ")")
+        ("。", ")"),
+        -- for loop
+        ("凡", "for"),
+        ("之于", "in"),
+        ("为", ": "),
+        -- operators
+        ("加","+")
     ]

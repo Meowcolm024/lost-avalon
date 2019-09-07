@@ -1,0 +1,13 @@
+#!/usr/local/bin/python
+# -*- coding: utf-8 -*-
+
+a 者 1 也
+b 者 2 也
+
+有略名 add(x,y) 文曰
+    上疏曰 x 加 y
+
+曰 add(a,b) 。
+
+凡 i 之于 [1,2,3] 为
+    曰 i 。

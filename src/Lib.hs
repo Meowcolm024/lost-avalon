@@ -9,9 +9,9 @@ import Words
 
 someFunc :: IO ()
 someFunc = do
-    handle <- openFile "t1.txt" ReadMode  
+    handle <- openFile "wenyan.txt" ReadMode  
     contents <- hGetContents handle  
-    writeFile "t1.py" $ parseBack $ getVal $ parseTo contents  
+    writeFile "wenyan.py" $ parseBack (map (`replaceList` keywords) (getVal $ parseTo contents))
     hClose handle  
   
 wyFile = endBy line eol
@@ -29,7 +29,7 @@ parseBack x = unlines $ map unwords x
 
 getVal :: Either a b -> b
 getVal (Right x) = x
-getVal (Left x) = error "Error"
+getVal (Left x) = error "Probably syntax error"
 
 replace :: (Eq a) => a -> [(a, a)] -> a
 replace x ((a, b):ys)
