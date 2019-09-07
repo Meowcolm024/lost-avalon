@@ -1,9 +1,15 @@
 #!/usr/local/bin/python
 # -*- coding: utf-8 -*-
 
+批： 此乃批注也
+
 a 者 1 也
 b 者 2 也
 c 者 真 也
+
+旁注言 
+滑稽列传 
+注终
 
 有略名 add(x,y) 文曰
     上疏曰 x 加 y

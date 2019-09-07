@@ -1,3 +1,15 @@
 #!/usr/local/bin/python
 # -*- coding: utf-8 -*-
 
+有略名 fib(n) 文曰
+    a 者 0 也
+    b 者 1 也
+    复为之，方 n 大于 0 乃止
+        a 换作 b 也
+        b 今乃 a 加 b 也
+        n 换作 n 减 1 也
+        yield a 
+        批： 无同yield之函数也
+
+凡 i 之于 fib(10) 为
+    曰 i 。

@@ -34,6 +34,7 @@ Makesure you have installed *Haskell* and *Stack*
 * a *while loop* while 循环： `复为之，方 <条件> 乃止`
 * a *if-elif-else* structure 逻辑分支： `若 <条件> 则为 <<代码>> 又或 <条件> 则为 <<代码>> 不者 则为 <<代码>>`
 * *print* function print函数： `曰 <内容> 。`
+* comments 注释 `批： <注释内容>` 或 `旁注言 <注释内容> 注终`
 
 ### 运算符及其他
 

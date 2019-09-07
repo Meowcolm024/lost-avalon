@@ -11,10 +11,9 @@ import Words
 someFunc :: IO ()
 someFunc = do
     (name:args) <- getArgs
-    appendFile name "\n"
-    handle   <- openFile name ReadMode  
-    contents <- hGetContents handle  
-    writeFile (takeWhile (/= '.') name ++ ".py") $ parseBack (map (`replaceList` keywords) (getVal $ parseTo contents))
+    handle      <- openFile name ReadMode  
+    contents    <- hGetContents handle  
+    writeFile (takeWhile (/= '.') name ++ ".py") $ parseBack (map (`replaceList` keywords) (getVal $ parseTo $ contents ++ "\n"))
     hClose handle  
   
 wyFile = endBy line eol

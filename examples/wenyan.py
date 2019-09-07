@@ -1,9 +1,15 @@
 #!/usr/local/bin/python
 # -*- coding: utf-8 -*-
 
+#  此乃批注也
+
 a = 1  
 b = 2  
 c = True  
+
+""" 
+滑稽列传 
+"""
 
 def add(x,y) : 
     return x + y
@@ -28,3 +34,4 @@ if c == True :
     c = False  
 
 print( c )
+
