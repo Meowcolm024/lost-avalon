@@ -5,13 +5,16 @@ module Lib
 
 import Text.ParserCombinators.Parsec
 import System.IO
+import System.Environment
 import Words
 
 someFunc :: IO ()
 someFunc = do
-    handle   <- openFile "wenyan.txt" ReadMode  
+    (name:args) <- getArgs
+    appendFile name "\n"
+    handle   <- openFile name ReadMode  
     contents <- hGetContents handle  
-    writeFile "wenyan.py" $ parseBack (map (`replaceList` keywords) (getVal $ parseTo contents))
+    writeFile (takeWhile (/= '.') name ++ ".py") $ parseBack (map (`replaceList` keywords) (getVal $ parseTo contents))
     hClose handle  
   
 wyFile = endBy line eol

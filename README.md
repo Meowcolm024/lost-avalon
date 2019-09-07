@@ -10,9 +10,16 @@ A simple program allowing you to write *Python* in **Wenyanwen（文言文）**
 
 这是一个可以让你用**文言文**来写*Python*的小程序
 
+## Usage 使用
+
+Makesure you have installed *Haskell* and *Stack*
+
+1. Enter the directory then use command ```stack build``` to build the project
+2. Execute the program using: ```stack exec lost-avalon-exe <name of your source file>```
+
 ## Syntax 语法
 
-懒得看的话，也可以参考这个[实例](wenyan.txt)
+懒得看的话，也可以参考这个[实例](examples/wenyan.txt)，转换后代码是[这个](examples/wenyan.py)
 
 ### 主要的语句
 
