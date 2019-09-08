@@ -1,15 +1,17 @@
 #!/usr/local/bin/python
 # -*- coding: utf-8 -*-
 
-def fib(n) : 
-    a = 0  
-    b = 1  
-    while n > 0 :
-        a = b  
-        b = a + b  
-        n = n - 1  
-        yield a 
-        #  无同yield之函数也
+### var3 var2 var1 var0
 
-for i in fib(10) : 
-    print( i )
+def fib( var1 ) : 
+    var3 = 0  
+    var2 = 1  
+    while var1 > 0 :
+        var3 = var2  
+        var2 = var3 + var2  
+        var1 = var1 - 1  
+        yield var3
+        # 无同yield之函数也
+
+for var0 in fib(10) : 
+    print( var0 )

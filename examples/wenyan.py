@@ -1,11 +1,13 @@
 #!/usr/local/bin/python
 # -*- coding: utf-8 -*-
 
+### var0
+
 #  此乃批注也
 
 a = 1  
 b = 2  
-c = True  
+var0 = True  
 
 """ 
 滑稽列传 
@@ -30,8 +32,8 @@ elif b < 0 :
 else :
     print( " 今安在 " )
 
-if c == True :
-    c = False  
+if var0 == True :
+    var0 = False  
 
-print( c )
+print( var0 )
 

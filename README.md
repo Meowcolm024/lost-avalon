@@ -23,11 +23,12 @@ Makesure you have installed *Haskell* and *Stack*
 
 ### 主要的语句
 
-**注意：变量名和函数名必须是英文，函数名需要为如fib(x)的形式**
+**注意：函数名需要为如fib( x )的形式，中文变量名有特殊声明要求**
 
 **注意：语句块中的代码要有缩进**
 
-* defining a variant 定义变量： `<变量名> 者 <变量> 也` 或 `<变量名> 换作 <变量> 也`
+* declaring Chinese variants 声明中文变量： `有参者 <变量1> <变量2> <...>`（在此声明之后该中文才可以才可以正常用作定义）
+* defining a variant 定义变量： `<变量名> 者 <变量> 也` 或 `<变量名> 换作 <变量> 也` 或 `<变量名> 今乃 <变量> 也`
 * defining a function 定义函数： `有略名 <函数> 文曰 <<代码>>`
 * defining a function with return value 定义又返回值的函数： `<<前面和定义函数一样，用这个语句返回变量>> 上疏曰 <变量>`
 * a *for loop* for 循环： `凡 <变量名> 之于 <一个list或者其他东西> 为`

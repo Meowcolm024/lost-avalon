@@ -1,5 +1,5 @@
 module Words 
-    ( keywords
+    ( keywords, varkey
     ) where
 
 -- translate Wenyanwen to python syntax
@@ -49,11 +49,15 @@ keywords =
         ("真", "True"),
         ("伪", "False"),
         -- comment
-        ("批：", "# "),
+        ("批：", "#"),
         ("旁注言", "\"\"\""),
         ("注终", "\"\"\""),
         -- misc
         ("“","\""),
         ("”","\""),
-        ("，", ",")
+        ("，", ","),
+        (varkey,"###")
     ]
+
+varkey :: String
+varkey = "有参者"
