@@ -1,7 +1,7 @@
 #!/usr/local/bin/python
 # -*- coding: utf-8 -*-
 
-有参者 甲子
+有参者 甲子 天干 地支
 
 旁注言 
 此乃
