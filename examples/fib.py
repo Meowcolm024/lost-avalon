@@ -3,7 +3,7 @@
 
 ### var3 var2 var1 var0
 
-def fib( var1 ) : 
+def fun0 ( var1 ): 
     var3 = 0  
     var2 = 1  
     while var1 > 0 :
@@ -13,5 +13,5 @@ def fib( var1 ) :
         yield var3
         # 无同yield之函数也
 
-for var0 in fib(10) : 
+for var0 in fun0 ( 10 ) : 
     print( var0 )

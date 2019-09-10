@@ -15,7 +15,8 @@ someFunc = do
     contents    <- hGetContents handle 
     let codes   = getVal $ parseTo $ contents ++ "\n" 
     let vars    = transVar $ findVar codes
-    writeFile (takeWhile (/= '.') name ++ ".py") $ parseBack (map (`replaceList` (keywords ++ vars)) codes)
+    let fcs     = transFC funkey (findFC funkey codes) ++ transFC classkey (findFC classkey codes)
+    writeFile (takeWhile (/= '.') name ++ ".py") $ parseBack (map (`replaceList` (keywords ++ vars ++ fcs)) codes)
     hClose handle  
   
 wyFile = endBy line eol
@@ -56,3 +57,19 @@ findVar (x:xs)
 transVar :: [String] -> [(String,String)]
 transVar []             = []
 transVar (x:xs) = let l = length xs in (x, "var" ++ show l) : transVar xs
+
+findFC :: String -> [[String]] -> [String]
+findFC _ []         = []
+findFC _ [x]        = []
+findFC key (x:xs)
+    | null y = findFC key xs
+    | head y == key = y !! 1 : findFC key xs
+    | otherwise            = findFC key xs
+    where y = dropWhile (== "") x
+
+transFC :: String -> [String] -> [(String,String)]
+transFC _ []        = []
+transFC k (x:xs)
+    | k == funkey   = (x, "fun" ++ show l) : transFC funkey xs
+    | k == classkey = (x, "cla" ++ show l) : transFC classkey xs
+    where l = length xs

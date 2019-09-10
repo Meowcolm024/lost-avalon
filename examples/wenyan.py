@@ -1,7 +1,8 @@
 #!/usr/local/bin/python
 # -*- coding: utf-8 -*-
 
-### var2 var1 var0
+# 参名，略名，族名 皆书于此
+### var4 var3 var2 var1 var0
 
 """ 
 此乃
@@ -10,31 +11,41 @@
 
 # 此乃批注也
 
-var1 = 1  
-var0 = 2  
-var2 = True  
+class cla0 ():
+    def __init__ ( self ): 
+        self . var1 = 100  
 
-def add(x,y) : 
+    def fun1 ( self ): 
+        print( self . var1 )
+
+var3 = 1  
+var2 = 2  
+var4 = True  
+
+def fun0 ( x , y ): 
     return x + y
 
-print( add( var1 , var0 ) )
+print(  fun0 ( var3 , var2 ) )
 
 for i in [1,2,3] : 
     print( i )
 
-while var1 < 3 :
-    var1 = var1 + 1  
+while var3 < 3 :
+    var3 = var3 + 1  
     print( " 善哉 " )
 
-if var0 == 3 :
+if var2 == 3 :
     print( " 行路难 " )
-elif var0 < 0 :
+elif var2 < 0 :
     print( " 多歧路 " )
 else :
     print( " 今安在 " )
 
-if var2 == True :
-    var2 = False  
+if var4 == True :
+    var4 = False  
 
-print( var2 )
+print( var4 )
 
+var0 = cla0 ()  
+
+var0 . fun1 ()

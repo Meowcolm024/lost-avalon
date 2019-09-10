@@ -1,5 +1,5 @@
 module Words 
-    ( keywords, varkey
+    ( keywords, varkey, funkey, classkey
     ) where
 
 -- translate Wenyanwen to python syntax
@@ -11,13 +11,30 @@ keywords =
         ("今乃", "="),
         ("换作", "="),
         ("也", " "),
+        -- import
+        ("遗", "import"),
+        ("之策", ""),
         -- define function
-        ("有略名", "def"),
-        ("文曰", ": "),
+        (funkey, "def"),
+        ("其参名", "("),
+        ("其文曰", "): "),
         ("上疏曰", "return"),
+        -- use function
+        ("用略", ""),
+        ("其参乃", "("),
+        ("是也", ")"),
+        ("无参", "()"),
         -- print function
         ("曰", "print("),
         ("。", ")"),
+        -- class
+        (classkey, "class"),
+        ("因袭", "("),
+        ("之族", "):"),
+        ("新立", "():"),
+        ("一式", "__init__"),
+        ("吾身", "self"),
+        ("用族", ""),
         -- for loop
         ("凡", "for"),
         ("之于", "in"),
@@ -56,8 +73,17 @@ keywords =
         ("“","\""),
         ("”","\""),
         ("，", ","),
+        ("（", "("),
+        ("）", ")"),
+        ("之", "."),
         (varkey,"###")
     ]
 
 varkey :: String
 varkey = "有参者"
+
+classkey :: String
+classkey = "有族名"
+
+funkey :: String
+funkey = "有略名"
