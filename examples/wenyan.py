@@ -15,17 +15,17 @@ class cla0 ():
     def __init__ ( self ): 
         self . var1 = 100  
 
-    def fun1 ( self ): 
+    def fun2 ( self ): 
         print( self . var1 )
 
 var3 = 1  
 var2 = 2  
 var4 = True  
 
-def fun0 ( x , y ): 
+def fun1 ( x , y ): 
     return x + y
 
-print(  fun0 ( var3 , var2 ) )
+print(  fun1 ( var3 , var2 ) )
 
 for i in [1,2,3] : 
     print( i )
@@ -48,4 +48,9 @@ print( var4 )
 
 var0 = cla0 ()  
 
-var0 . fun1 ()
+var0 . fun2 ()
+
+def fun0 ( ): 
+    print( "哈哈" )
+
+(  fun0 () )
