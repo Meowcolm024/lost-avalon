@@ -27,3 +27,8 @@ Check out here [在这里](wenyan-syntax.md)
 | ------------ | :-------------------------------: | :-----------------------------: |
 | 示例         | [wenyan.txt](examples/wenyan.txt) | [wenyan.py](examples/wenyan.py) |
 | 斐波那契数列 |    [fib.txt](examples/fib.txt)    |    [fib.py](examples/fib.py)    |
+
+## Others 其他
+
+* Input file should be encoded in **UTF-8**
+* If you have trouble using *Stack* check out the `extra` folder

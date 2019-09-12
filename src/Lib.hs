@@ -62,9 +62,9 @@ findFC :: String -> [[String]] -> [String]
 findFC _ []         = []
 findFC _ [x]        = []
 findFC key (x:xs)
-    | null y = findFC key xs
+    | null y        = findFC key xs
     | head y == key = y !! 1 : findFC key xs
-    | otherwise            = findFC key xs
+    | otherwise     = findFC key xs
     where y = dropWhile (== "") x
 
 transFC :: String -> [String] -> [(String,String)]

@@ -1,7 +1,7 @@
 #!/usr/local/bin/python
 # -*- coding: utf-8 -*-
 
-# 参名，略名，族名 皆书于此
+# 参名书于此
 ### var4 var3 var2 var1 var0
 
 """ 
@@ -10,6 +10,8 @@
 """
 
 # 此乃批注也
+
+import calendar 
 
 class cla0 ():
     def __init__ ( self ): 
@@ -54,3 +56,5 @@ def fun0 ( ):
     print( "哈哈" )
 
 (  fun0 () )
+
+print( calendar . isleap ( 2019 ) )

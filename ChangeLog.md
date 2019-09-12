@@ -2,6 +2,11 @@
 
 ## Unreleased changes
 
+## 0.3.0
+
+- Added class, import etc
+- Chinese function and class name supported
+
 ## 0.2.0
 
 - Chinese variants supported

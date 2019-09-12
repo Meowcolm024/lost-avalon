@@ -12,6 +12,7 @@ keywords =
         ("换作", "="),
         ("也", " "),
         -- import
+        ("自", "from"),
         ("遗", "import"),
         ("之策", ""),
         -- define function
