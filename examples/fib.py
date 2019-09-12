@@ -8,8 +8,8 @@ def fun0 ( var1 ):
     var2 = 1  
     while var1 > 0 :
         var3 = var2  
-        var2 = var3 + var2  
-        var1 = var1 - 1  
+        var2 = var3 + var2   
+        var1 -= 1  
         yield var3
         # 无同yield之函数也
 

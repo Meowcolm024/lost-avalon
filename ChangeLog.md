@@ -2,6 +2,9 @@
 
 ## Unreleased changes
 
+- support for more functions
+- things related to lists
+
 ## 0.3.0
 
 - Added class, import etc

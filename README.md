@@ -27,6 +27,7 @@ Check out here [在这里](wenyan-syntax.md)
 | ------------ | :-------------------------------: | :-----------------------------: |
 | 示例         | [wenyan.txt](examples/wenyan.txt) | [wenyan.py](examples/wenyan.py) |
 | 斐波那契数列 |    [fib.txt](examples/fib.txt)    |    [fib.py](examples/fib.py)    |
+| 插入排序 |    [sort.txt](examples/sort.txt)    |    [sort.py](examples/sort.py)    |
 
 ## Others 其他
 

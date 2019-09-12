@@ -1,9 +1,9 @@
 name:                lost-avalon
-version:             0.3.0.0
+version:             0.3.1.0
 github:              "Meowcolm024/lost-avalon"
 license:             MIT
 author:              "Malcolm Law"
-maintainer:          ""
+maintainer:          "?"
 copyright:           "2019 Malcolm Law"
 
 extra-source-files:
