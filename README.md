@@ -15,7 +15,7 @@ A simple program allowing you to write *Python* in **Wenyanwen（文言文）**
 Makesure you have installed *Haskell* and *Stack*
 
 1. Enter the directory then use command ```stack build``` to build the project
-2. Execute the program using: ```stack exec lost-avalon-exe <name of your source file>```
+2. Execute the program using: ```stack exec lost-avalon-exe <input-file>```
 
 ## Syntax 语法
 
@@ -27,7 +27,7 @@ Check out here [在这里](wenyan-syntax.md)
 | ------------ | :-------------------------------: | :-----------------------------: |
 | 示例         | [wenyan.txt](examples/wenyan.txt) | [wenyan.py](examples/wenyan.py) |
 | 斐波那契数列 |    [fib.txt](examples/fib.txt)    |    [fib.py](examples/fib.py)    |
-| 插入排序 |    [sort.txt](examples/sort.txt)    |    [sort.py](examples/sort.py)    |
+| 插入排序     |   [sort.txt](examples/sort.txt)   |   [sort.py](examples/sort.py)   |
 
 ## Others 其他
 

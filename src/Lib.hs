@@ -7,6 +7,7 @@ import Text.ParserCombinators.Parsec
 import System.IO
 import System.Environment
 import Words
+import Detector
 
 someFunc :: IO ()
 someFunc = do
@@ -14,6 +15,11 @@ someFunc = do
     handle      <- openFile name ReadMode  
     contents    <- hGetContents handle 
     let codes   = getVal $ parseTo $ contents ++ "\n" 
+    {-
+    let tmp     = map (`replaceList` keywords) codes
+    let vfcs    = detectFC tmp ++ detectVar tmp
+    let fin     = map (`replaceList` vfcs) tmp
+    -}
     let vars    = transVar $ findVar codes
     let fcs     = transFC funkey (findFC funkey codes) ++ transFC classkey (findFC classkey codes)
     writeFile (takeWhile (/= '.') name ++ ".py") $ parseBack (map (`replaceList` (keywords ++ vars ++ fcs)) codes)
@@ -55,7 +61,7 @@ findVar (x:xs)
     | otherwise        = findVar xs
 
 transVar :: [String] -> [(String,String)]
-transVar []             = []
+transVar []     = []
 transVar (x:xs) = let l = length xs in (x, "var" ++ show l) : transVar xs
 
 findFC :: String -> [[String]] -> [String]
