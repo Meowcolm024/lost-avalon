@@ -12,19 +12,20 @@ import Detector
 someFunc :: IO ()
 someFunc = do
     (name:args) <- getArgs
-    handle      <- openFile name ReadMode  
-    contents    <- hGetContents handle 
+    handle      <- openFile name ReadMode
+    putStrLn "WARNING: lists are not supported!"
+    contents    <- hGetContents handle
     let codes   = getVal $ parseTo $ contents ++ "\n" 
+    let vfcs    = detectFC codes ++ detectVar codes
+    let tmp     = map (`replaceList` (keywords ++ vfcs)) codes
+    writeFile (takeWhile (/= '.') name ++ ".py") $ parseBack tmp
     {-
-    let tmp     = map (`replaceList` keywords) codes
-    let vfcs    = detectFC tmp ++ detectVar tmp
-    let fin     = map (`replaceList` vfcs) tmp
-    -}
     let vars    = transVar $ findVar codes
     let fcs     = transFC funkey (findFC funkey codes) ++ transFC classkey (findFC classkey codes)
     writeFile (takeWhile (/= '.') name ++ ".py") $ parseBack (map (`replaceList` (keywords ++ vars ++ fcs)) codes)
+    -}
     hClose handle  
-  
+
 wyFile = endBy line eol
 line   = sepBy cell (char ' ')
 cell   = many (noneOf " \n")

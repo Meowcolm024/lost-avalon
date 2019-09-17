@@ -1,6 +1,8 @@
 {-
 FLAWED:
 when encountering lists, function parameters
+IDEA:
+"=" -> "者"
 -}
 
 module Detector
@@ -22,8 +24,8 @@ findFC key (x:xs)
 transFC :: String -> [String] -> [(String,String)]
 transFC _ []       = []
 transFC k (x:xs)
-    | k == "def"   = (x, "fun" ++ show l) : transFC "def" xs
-    | k == "class" = (x, "cla" ++ show l) : transFC "class" xs
+    | k == "有略名"   = (x, "fun" ++ show l) : transFC "有略名" xs
+    | k == "有族名" = (x, "cla" ++ show l) : transFC "有族名" xs
     where l = length xs
 
 -- find variants
@@ -33,7 +35,7 @@ findVar (x:xs)
     | null vs      = findVar xs
     | head vs == 0 = error "Could not find variant: nothing before = !"
     | otherwise    = [x !! (v - 1) | v <- vs] ++ findVar xs
-    where vs = ["=", "-=", "+=", "==", ">", "<", ">=", "<=", "in"] `allIndices` x
+    where vs = ["者", "其文曰"] `allIndices` x -- here 
 
 transVar :: [String] -> [(String,String)]
 transVar []     = []
@@ -47,7 +49,7 @@ allIndices (v:vs) xs = (v `elemIndices` xs) ++ allIndices vs xs
 
 -- detectors
 detectFC :: [[String]] -> [(String,String)]
-detectFC xs = transFC "def" (findFC "def" xs) ++ transFC "class" (findFC "class" xs)
+detectFC xs = transFC "有略名" (findFC "有略名" xs) ++ transFC "有族名" (findFC "有族名" xs)
 
 detectVar :: [[String]] -> [(String,String)]
 detectVar = transVar . nub . findVar
