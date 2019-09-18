@@ -13,7 +13,7 @@ someFunc :: IO ()
 someFunc = do
     (name:args) <- getArgs
     handle      <- openFile name ReadMode
-    putStrLn "WARNING: lists are not supported!"
+    --putStrLn "WARNING: lists are not supported!"
     contents    <- hGetContents handle
     let codes   = getVal $ parseTo $ contents ++ "\n" 
     let vfcs    = detectFC codes ++ detectVar codes

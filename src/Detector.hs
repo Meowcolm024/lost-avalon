@@ -24,7 +24,7 @@ findFC key (x:xs)
 transFC :: String -> [String] -> [(String,String)]
 transFC _ []       = []
 transFC k (x:xs)
-    | k == "有略名"   = (x, "fun" ++ show l) : transFC "有略名" xs
+    | k == "有略名" = (x, "fun" ++ show l) : transFC "有略名" xs
     | k == "有族名" = (x, "cla" ++ show l) : transFC "有族名" xs
     where l = length xs
 
@@ -35,7 +35,7 @@ findVar (x:xs)
     | null vs      = findVar xs
     | head vs == 0 = error "Could not find variant: nothing before = !"
     | otherwise    = [x !! (v - 1) | v <- vs] ++ findVar xs
-    where vs = ["者", "其文曰"] `allIndices` x -- here 
+    where vs = ["者", "其文曰", "之于", "、"] `allIndices` x -- here 
 
 transVar :: [String] -> [(String,String)]
 transVar []     = []
@@ -52,4 +52,4 @@ detectFC :: [[String]] -> [(String,String)]
 detectFC xs = transFC "有略名" (findFC "有略名" xs) ++ transFC "有族名" (findFC "有族名" xs)
 
 detectVar :: [[String]] -> [(String,String)]
-detectVar = transVar . nub . findVar
+detectVar xs = transVar $ nub (findVar xs) \\ ["吾身"]

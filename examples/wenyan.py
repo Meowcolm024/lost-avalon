@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # 参名书于此
-### var4 var3 var2 var1 var0
+### var5 var7 var6 var8 var1
 
 """ 
 此乃
@@ -15,42 +15,42 @@ import calendar
 
 class cla0 ():
     def __init__ ( self ): 
-        self . var1 = 100  
+        self . var8 = 100  
 
     def fun2 ( self ): 
-        print( self . var1 )
+        print( self . var8 )
 
-var3 = 1  
-var2 = 2  
-var4 = True  
+var7 = 1  
+var6 = 2  
+var5 = True  
 
-def fun1 ( x , y ): 
-    return x + y
+def fun1 ( var3 , var4 ): 
+    return var3 + var4
 
-print(  fun1 ( var3 , var2 ) )
+print(  fun1 ( var7 , var6 ) )
 
-for i in [1,2,3] : 
-    print( i )
+for var2 in [1,2,3] : 
+    print( var2 )
 
-while var3 < 3 :
-    var3 = var3 + 1  
+while var7 < 3 :
+    var7 = var7 + 1  
     print( " 善哉 " )
 
-if var2 == 3 :
+if var6 == 3 :
     print( " 行路难 " )
-elif var2 < 0 :
+elif var6 < 0 :
     print( " 多歧路 " )
 else :
     print( " 今安在 " )
 
-if var4 == True :
-    var4 = False  
+if var5 == True :
+    var5 = False  
 
-print( var4 )
+print( var5 )
 
-var0 = cla0 ()  
+var1 = cla0 ()  
 
-var0 . fun2 ()
+var1 . fun2 ()
 
 def fun0 ( ): 
     print( "哈哈" )
