@@ -1,10 +1,3 @@
-{-
-FLAWED:
-when encountering lists, function parameters
-IDEA:
-"=" -> "者"
--}
-
 module Detector
     ( detectFC, detectVar
     ) where
@@ -52,4 +45,4 @@ detectFC :: [[String]] -> [(String,String)]
 detectFC xs = transFC "有略名" (findFC "有略名" xs) ++ transFC "有族名" (findFC "有族名" xs)
 
 detectVar :: [[String]] -> [(String,String)]
-detectVar xs = transVar $ nub (findVar xs) \\ ["吾身"]
+detectVar xs = transVar $ nub (findVar xs) \\ ["吾身", "无参也"]

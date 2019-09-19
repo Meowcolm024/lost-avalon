@@ -13,17 +13,11 @@ someFunc :: IO ()
 someFunc = do
     (name:args) <- getArgs
     handle      <- openFile name ReadMode
-    --putStrLn "WARNING: lists are not supported!"
     contents    <- hGetContents handle
     let codes   = getVal $ parseTo $ contents ++ "\n" 
     let vfcs    = detectFC codes ++ detectVar codes
     let tmp     = map (`replaceList` (keywords ++ vfcs)) codes
     writeFile (takeWhile (/= '.') name ++ ".py") $ parseBack tmp
-    {-
-    let vars    = transVar $ findVar codes
-    let fcs     = transFC funkey (findFC funkey codes) ++ transFC classkey (findFC classkey codes)
-    writeFile (takeWhile (/= '.') name ++ ".py") $ parseBack (map (`replaceList` (keywords ++ vars ++ fcs)) codes)
-    -}
     hClose handle  
 
 wyFile = endBy line eol
@@ -53,30 +47,3 @@ replace x ((a, b):ys)
 replaceList :: (Eq a) => [a] -> [(a, a)] -> [a]
 replaceList [] _  = []
 replaceList xs ys = map (`replace` ys) xs
-
--- find Chinese variants and convert them to English
-findVar :: [[String]] -> [String]
-findVar (x:xs)
-    | null x           = findVar xs
-    | head x == varkey = tail x
-    | otherwise        = findVar xs
-
-transVar :: [String] -> [(String,String)]
-transVar []     = []
-transVar (x:xs) = let l = length xs in (x, "var" ++ show l) : transVar xs
-
-findFC :: String -> [[String]] -> [String]
-findFC _ []         = []
-findFC _ [x]        = []
-findFC key (x:xs)
-    | null y        = findFC key xs
-    | head y == key = y !! 1 : findFC key xs
-    | otherwise     = findFC key xs
-    where y = dropWhile (== "") x
-
-transFC :: String -> [String] -> [(String,String)]
-transFC _ []        = []
-transFC k (x:xs)
-    | k == funkey   = (x, "fun" ++ show l) : transFC funkey xs
-    | k == classkey = (x, "cla" ++ show l) : transFC classkey xs
-    where l = length xs
