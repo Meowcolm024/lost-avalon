@@ -5,20 +5,35 @@ module Lib
 
 import Text.ParserCombinators.Parsec
 import System.IO
+import System.IO.Error
+import Control.Exception
 import System.Environment
 import Words
+import Detector
 
 someFunc :: IO ()
-someFunc = do
-    (name:args) <- getArgs
-    handle      <- openFile name ReadMode  
-    contents    <- hGetContents handle 
-    let codes   = getVal $ parseTo $ contents ++ "\n" 
-    let vars    = transVar $ findVar codes
-    let fcs     = transFC funkey (findFC funkey codes) ++ transFC classkey (findFC classkey codes)
-    writeFile (takeWhile (/= '.') name ++ ".py") $ parseBack (map (`replaceList` (keywords ++ vars ++ fcs)) codes)
-    hClose handle  
-  
+someFunc = toTry `catch` handler   
+
+toTry :: IO ()  
+toTry = do  (name:_) <- getArgs
+            handle      <- openFile name ReadMode
+            contents    <- hGetContents handle
+            writeFile (takeWhile (/= '.') name ++ ".py") $ convert contents
+            hClose handle  
+
+handler :: IOError -> IO ()     
+handler e     
+    | isDoesNotExistError e =   
+        case ioeGetFileName e of Just path -> putStrLn $ "Whoops! File does not exist at: " ++ path  
+                                 Nothing   -> putStrLn "Whoops! File does not exist at unknown location!"  
+    | otherwise = ioError e  
+
+convert :: String -> String
+convert content = let codes = getVal $ parseTo $ content ++ "\n" 
+                      vfcs  = detectFC codes ++ detectVar codes
+                      tmp   = map (`replaceList` (keywords ++ vfcs)) codes
+                  in parseBack tmp
+
 wyFile = endBy line eol
 line   = sepBy cell (char ' ')
 cell   = many (noneOf " \n")
@@ -46,30 +61,3 @@ replace x ((a, b):ys)
 replaceList :: (Eq a) => [a] -> [(a, a)] -> [a]
 replaceList [] _  = []
 replaceList xs ys = map (`replace` ys) xs
-
--- find Chinese variants and convert them to English
-findVar :: [[String]] -> [String]
-findVar (x:xs)
-    | null x           = findVar xs
-    | head x == varkey = tail x
-    | otherwise        = findVar xs
-
-transVar :: [String] -> [(String,String)]
-transVar []             = []
-transVar (x:xs) = let l = length xs in (x, "var" ++ show l) : transVar xs
-
-findFC :: String -> [[String]] -> [String]
-findFC _ []         = []
-findFC _ [x]        = []
-findFC key (x:xs)
-    | null y        = findFC key xs
-    | head y == key = y !! 1 : findFC key xs
-    | otherwise     = findFC key xs
-    where y = dropWhile (== "") x
-
-transFC :: String -> [String] -> [(String,String)]
-transFC _ []        = []
-transFC k (x:xs)
-    | k == funkey   = (x, "fun" ++ show l) : transFC funkey xs
-    | k == classkey = (x, "cla" ++ show l) : transFC classkey xs
-    where l = length xs
