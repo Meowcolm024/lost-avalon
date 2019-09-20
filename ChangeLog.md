@@ -3,7 +3,15 @@
 ## Unreleased changes
 
 - support for more functions
-- things related to lists
+
+## 0.4.1
+
+- added error handling
+
+## 0.4.0
+
+- lists supported
+- removed special requirement for CN var
 
 ## 0.3.0
 
