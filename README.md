@@ -1,6 +1,6 @@
 # lost-avalon
 
-![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/Meowcolm024/lost-avalon?include_prereleases)
+[![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/Meowcolm024/lost-avalon?include_prereleases)](https://github.com/Meowcolm024/lost-avalon/releases)
 ![GitHub](https://img.shields.io/github/license/Meowcolm024/lost-avalon)
 ![Hackage-Deps](https://img.shields.io/hackage-deps/v/parsec)
 
