@@ -1,24 +1,36 @@
-{- lost-avalon-one v0.3.0-}
-
+{- lost-avalon-one v0.4.2 -}
+import Data.List
 import Text.ParserCombinators.Parsec
 import System.IO
+import System.IO.Error
+import Control.Exception
 import System.Environment
 
-main :: IO()
-main = someFunc
-
--- source
 someFunc :: IO ()
-someFunc = do
-    (name:args) <- getArgs
-    handle      <- openFile name ReadMode  
-    contents    <- hGetContents handle 
-    let codes   = getVal $ parseTo $ contents ++ "\n" 
-    let vars    = transVar $ findVar codes
-    let fcs     = transFC funkey (findFC funkey codes) ++ transFC classkey (findFC classkey codes)
-    writeFile (takeWhile (/= '.') name ++ ".py") $ parseBack (map (`replaceList` (keywords ++ vars ++ fcs)) codes)
-    hClose handle  
-  
+someFunc = toTry `catch` handler
+
+toTry :: IO ()
+toTry = do  (name:_) <- getArgs
+            handle   <- openFile name ReadMode
+            hSetEncoding handle utf8
+            contents <- hGetContents handle
+            writeFile (takeWhile (/= '.') name ++ ".py") $ convert contents
+            hClose handle
+
+handler :: IOError -> IO ()
+handler e
+    | isDoesNotExistError e =
+        case ioeGetFileName e of Just path -> putStrLn $ "Whoops! File does not exist at: " ++ path
+                                 Nothing   -> putStrLn "Whoops! File does not exist at unknown location!"
+    | otherwise = ioError e
+
+-- convert wenyan to python
+convert :: String -> String
+convert content = let codes = getVal $ parseTo $ content ++ "\n"
+                      vfcs  = detectFC codes ++ detectVar codes
+                      tmp   = map (`replaceList` (keywords ++ vfcs)) codes
+                  in parseBack tmp
+
 wyFile = endBy line eol
 line   = sepBy cell (char ' ')
 cell   = many (noneOf " \n")
@@ -47,34 +59,50 @@ replaceList :: (Eq a) => [a] -> [(a, a)] -> [a]
 replaceList [] _  = []
 replaceList xs ys = map (`replace` ys) xs
 
--- find Chinese variants and convert them to English
-findVar :: [[String]] -> [String]
-findVar (x:xs)
-    | null x           = findVar xs
-    | head x == varkey = tail x
-    | otherwise        = findVar xs
-
-transVar :: [String] -> [(String,String)]
-transVar []             = []
-transVar (x:xs) = let l = length xs in (x, "var" ++ show l) : transVar xs
-
+-- find function and class
 findFC :: String -> [[String]] -> [String]
 findFC _ []         = []
 findFC _ [x]        = []
 findFC key (x:xs)
-    | null y = findFC key xs
+    | null y        = findFC key xs
     | head y == key = y !! 1 : findFC key xs
-    | otherwise            = findFC key xs
+    | otherwise     = findFC key xs
     where y = dropWhile (== "") x
 
 transFC :: String -> [String] -> [(String,String)]
-transFC _ []        = []
+transFC _ []       = []
 transFC k (x:xs)
-    | k == funkey   = (x, "fun" ++ show l) : transFC funkey xs
-    | k == classkey = (x, "cla" ++ show l) : transFC classkey xs
+    | k == "有略名" = (x, "fun" ++ show l) : transFC "有略名" xs
+    | k == "有族名" = (x, "cla" ++ show l) : transFC "有族名" xs
     where l = length xs
 
--- data
+-- find variants
+findVar :: [[String]] -> [String]
+findVar []         = []
+findVar (x:xs)
+    | null vs      = findVar xs
+    | head vs == 0 = error "Could not find variant: nothing before = !"
+    | otherwise    = [x !! (v - 1) | v <- vs] ++ findVar xs
+    where vs = ["者", "其文曰", "之于", "、"] `allIndices` x -- here 
+
+transVar :: [String] -> [(String,String)]
+transVar []     = []
+transVar (x:xs) = let l = length xs in (x, "var" ++  show l) : transVar xs
+
+-- helper
+allIndices :: (Eq a) => [a] -> [a] -> [Int]
+allIndices _ []      = []
+allIndices [] _      = []
+allIndices (v:vs) xs = (v `elemIndices` xs) ++ allIndices vs xs
+
+-- detectors
+detectFC :: [[String]] -> [(String,String)]
+detectFC xs = transFC "有略名" (findFC "有略名" xs) ++ transFC "有族名" (findFC "有族名" xs)
+
+detectVar :: [[String]] -> [(String,String)]
+detectVar xs = transVar $ nub (findVar xs) \\ ["吾身", "无参也"]
+
+-- translate Wenyanwen to python syntax
 keywords :: [(String, String)]
 keywords = 
     [
@@ -92,6 +120,7 @@ keywords =
         ("其参名", "("),
         ("其文曰", "): "),
         ("无参也", "("),
+        ("、", ","),
         ("上疏曰", "return"),
         -- use function
         ("用略", ""),
@@ -121,11 +150,22 @@ keywords =
         ("则为", ":"),
         ("又或", "elif"),
         ("不者", "else"),
+        -- functions
+        ("数数", "range("),
+        ("数数自", "range("),
+        ("至", ","),
+        -- lists 
+        ("诸", "["), -- tmp !
+        ("位之数", "]"),
+        ("求长于", "len("),
+        ("之中", ")"),
         -- operators
         ("加", "+"),
         ("减", "-"),
         ("乘", "*"),
         ("除", "/"),
+        ("迁", "+="),
+        ("谪", "-="),
         ("大于", ">"),
         ("小于", "<"),
         ("非小于", ">="),
@@ -150,6 +190,9 @@ keywords =
         ("（", "("),
         ("）", ")"),
         ("之", "."),
+        ("【", "]"),
+        ("】", "["),
+        ("所得之数", ""),
         (varkey,"###")
     ]
 

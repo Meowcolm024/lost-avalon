@@ -12,24 +12,26 @@ import Words
 import Detector
 
 someFunc :: IO ()
-someFunc = toTry `catch` handler   
+someFunc = toTry `catch` handler
 
-toTry :: IO ()  
+toTry :: IO ()
 toTry = do  (name:_) <- getArgs
-            handle      <- openFile name ReadMode
-            contents    <- hGetContents handle
+            handle   <- openFile name ReadMode
+            hSetEncoding handle utf8
+            contents <- hGetContents handle
             writeFile (takeWhile (/= '.') name ++ ".py") $ convert contents
-            hClose handle  
+            hClose handle
 
-handler :: IOError -> IO ()     
-handler e     
-    | isDoesNotExistError e =   
-        case ioeGetFileName e of Just path -> putStrLn $ "Whoops! File does not exist at: " ++ path  
-                                 Nothing   -> putStrLn "Whoops! File does not exist at unknown location!"  
-    | otherwise = ioError e  
+handler :: IOError -> IO ()
+handler e
+    | isDoesNotExistError e =
+        case ioeGetFileName e of Just path -> putStrLn $ "Whoops! File does not exist at: " ++ path
+                                 Nothing   -> putStrLn "Whoops! File does not exist at unknown location!"
+    | otherwise = ioError e
 
+-- convert wenyan to python
 convert :: String -> String
-convert content = let codes = getVal $ parseTo $ content ++ "\n" 
+convert content = let codes = getVal $ parseTo $ content ++ "\n"
                       vfcs  = detectFC codes ++ detectVar codes
                       tmp   = map (`replaceList` (keywords ++ vfcs)) codes
                   in parseBack tmp

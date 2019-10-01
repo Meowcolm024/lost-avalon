@@ -1,3 +1,4 @@
 .stack-work/
 lost-avalon.cabal
 *~
+dist/
