@@ -1,10 +1,13 @@
-{- lost-avalon-one v0.4.2 -}
+{- lost-avalon-one v0.4.3 -}
 import Data.List
 import Text.ParserCombinators.Parsec
 import System.IO
 import System.IO.Error
 import Control.Exception
 import System.Environment
+
+main :: IO()
+main = someFunc
 
 someFunc :: IO ()
 someFunc = toTry `catch` handler
