@@ -51,7 +51,7 @@ parseBack x = unlines $ map unwords x
 
 getVal :: Either a b -> b
 getVal (Right x) = x
-getVal (Left x)  = error "Probably syntax error"
+getVal (Left _)  = error "Probably syntax error"
 
 -- replace Wenyan sytax with Python syntax
 replace :: (Eq a) => a -> [(a, a)] -> a
